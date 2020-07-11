@@ -5,7 +5,7 @@
  */
 package anhtt.dtos.service;
 
-import anhtt.dtos.Tags;
+import anhtt.dtos.Answers;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Yorkit Tran
  */
 @Stateless
-@Path("anhtt.dtos.tags")
-public class TagsFacadeREST extends AbstractFacade<Tags> {
+@Path("anhtt.dtos.answers")
+public class AnswersFacadeREST extends AbstractFacade<Answers> {
 
     @PersistenceContext(unitName = "Froala_APIPU")
     private EntityManager em;
 
-    public TagsFacadeREST() {
-        super(Tags.class);
+    public AnswersFacadeREST() {
+        super(Answers.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Tags entity) {
+    public void create(Answers entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Tags entity) {
+    public void edit(@PathParam("id") Integer id, Answers entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class TagsFacadeREST extends AbstractFacade<Tags> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Tags find(@PathParam("id") Integer id) {
+    public Answers find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Tags> findAll() {
+    public List<Answers> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Tags> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Answers> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

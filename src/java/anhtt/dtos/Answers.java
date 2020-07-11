@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,16 +28,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Yorkit Tran
  */
 @Entity
-@Table(name = "tags")
+@Table(name = "answers")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tags.findAll", query = "SELECT t FROM Tags t")
-    , @NamedQuery(name = "Tags.findById", query = "SELECT t FROM Tags t WHERE t.id = :id")
-    , @NamedQuery(name = "Tags.findByName", query = "SELECT t FROM Tags t WHERE t.name = :name")
-    , @NamedQuery(name = "Tags.findByKeyword", query = "SELECT t FROM Tags t WHERE t.keyword = :keyword")})
-public class Tags implements Serializable {
+    @NamedQuery(name = "Answers.findAll", query = "SELECT a FROM Answers a")
+    , @NamedQuery(name = "Answers.findById", query = "SELECT a FROM Answers a WHERE a.id = :id")
+    , @NamedQuery(name = "Answers.findByName", query = "SELECT a FROM Answers a WHERE a.name = :name")})
+public class Answers implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tagId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "answerId")
     private Collection<Tagsofanswers> tagsofanswersCollection;
 
     private static final long serialVersionUID = 1L;
@@ -46,21 +47,21 @@ public class Tags implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @Size(max = 2147483647)
-    @Column(name = "keyword")
-    private String keyword;
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Questions questionId;
 
-    public Tags() {
+    public Answers() {
     }
 
-    public Tags(Integer id) {
+    public Answers(Integer id) {
         this.id = id;
     }
 
-    public Tags(Integer id, String name) {
+    public Answers(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -81,12 +82,12 @@ public class Tags implements Serializable {
         this.name = name;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public Questions getQuestionId() {
+        return questionId;
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setQuestionId(Questions questionId) {
+        this.questionId = questionId;
     }
 
     @Override
@@ -99,10 +100,10 @@ public class Tags implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tags)) {
+        if (!(object instanceof Answers)) {
             return false;
         }
-        Tags other = (Tags) object;
+        Answers other = (Answers) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -111,7 +112,7 @@ public class Tags implements Serializable {
 
     @Override
     public String toString() {
-        return "anhtt.dtos.Tags[ id=" + id + " ]";
+        return "anhtt.dtos.Answers[ id=" + id + " ]";
     }
 
     @XmlTransient

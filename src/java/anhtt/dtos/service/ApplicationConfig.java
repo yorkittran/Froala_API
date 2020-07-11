@@ -29,9 +29,12 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(anhtt.dtos.service.AnswersFacadeREST.class);
         resources.add(anhtt.dtos.service.CategoriesFacadeREST.class);
         resources.add(anhtt.dtos.service.ProductsFacadeREST.class);
+        resources.add(anhtt.dtos.service.QuestionsFacadeREST.class);
         resources.add(anhtt.dtos.service.TagsFacadeREST.class);
+        resources.add(anhtt.dtos.service.TagsofanswersFacadeREST.class);
         resources.add(anhtt.dtos.service.TagsofproductsFacadeREST.class);
         resources.add(anhtt.dtos.service.UsersFacadeREST.class);
     }

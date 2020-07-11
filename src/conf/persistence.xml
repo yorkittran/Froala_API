@@ -3,6 +3,8 @@
   <persistence-unit name="Froala_APIPU" transaction-type="JTA">
     <jta-data-source>java:app/Froala_JNDI</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+        <property name="eclipselink.cache.shared.default" value="false"></property>
+    </properties>
   </persistence-unit>
 </persistence>

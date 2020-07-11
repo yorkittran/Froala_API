@@ -23,14 +23,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Yorkit Tran
  */
 @Entity
-@Table(name = "tagsofproducts")
+@Table(name = "tagsofanswers")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tagsofproducts.findAll", query = "SELECT t FROM Tagsofproducts t")
-    , @NamedQuery(name = "Tagsofproducts.findById", query = "SELECT t FROM Tagsofproducts t WHERE t.id = :id")
-    , @NamedQuery(name = "Tagsofproducts.findByTagId", query = "SELECT t FROM Tagsofproducts t WHERE t.tagId = :tagId")
-    , @NamedQuery(name = "Tagsofproducts.findByProductId", query = "SELECT t FROM Tagsofproducts t WHERE t.productId = :productId")})
-public class Tagsofproducts implements Serializable {
+    @NamedQuery(name = "Tagsofanswers.findAll", query = "SELECT t FROM Tagsofanswers t")
+    , @NamedQuery(name = "Tagsofanswers.findById", query = "SELECT t FROM Tagsofanswers t WHERE t.id = :id")
+    , @NamedQuery(name = "Tagsofanswers.findByAnswerId", query = "SELECT t FROM Tagsofanswers t WHERE t.answerId = :answerId")})
+public class Tagsofanswers implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,17 +37,17 @@ public class Tagsofproducts implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JoinColumn(name = "answer_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Products productId;
+    private Answers answerId;
     @JoinColumn(name = "tag_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tags tagId;
 
-    public Tagsofproducts() {
+    public Tagsofanswers() {
     }
 
-    public Tagsofproducts(Integer id) {
+    public Tagsofanswers(Integer id) {
         this.id = id;
     }
 
@@ -60,12 +59,12 @@ public class Tagsofproducts implements Serializable {
         this.id = id;
     }
 
-    public Products getProductId() {
-        return productId;
+    public Answers getAnswerId() {
+        return answerId;
     }
 
-    public void setProductId(Products productId) {
-        this.productId = productId;
+    public void setAnswerId(Answers answerId) {
+        this.answerId = answerId;
     }
 
     public Tags getTagId() {
@@ -86,10 +85,10 @@ public class Tagsofproducts implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tagsofproducts)) {
+        if (!(object instanceof Tagsofanswers)) {
             return false;
         }
-        Tagsofproducts other = (Tagsofproducts) object;
+        Tagsofanswers other = (Tagsofanswers) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +97,7 @@ public class Tagsofproducts implements Serializable {
 
     @Override
     public String toString() {
-        return "anhtt.dtos.Tagsofproducts[ id=" + id + " ]";
+        return "anhtt.dtos.Tagsofanswers[ id=" + id + " ]";
     }
     
 }

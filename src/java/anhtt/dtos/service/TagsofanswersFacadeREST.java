@@ -5,7 +5,8 @@
  */
 package anhtt.dtos.service;
 
-import anhtt.dtos.Products;
+import anhtt.dtos.Answers;
+import anhtt.dtos.Tagsofanswers;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,27 +28,27 @@ import javax.ws.rs.core.MediaType;
  * @author Yorkit Tran
  */
 @Stateless
-@Path("anhtt.dtos.products")
-public class ProductsFacadeREST extends AbstractFacade<Products> {
+@Path("anhtt.dtos.tagsofanswers")
+public class TagsofanswersFacadeREST extends AbstractFacade<Tagsofanswers> {
 
     @PersistenceContext(unitName = "Froala_APIPU")
     private EntityManager em;
 
-    public ProductsFacadeREST() {
-        super(Products.class);
+    public TagsofanswersFacadeREST() {
+        super(Tagsofanswers.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Products entity) {
+    public void create(Tagsofanswers entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Products entity) {
+    public void edit(@PathParam("id") Integer id, Tagsofanswers entity) {
         super.edit(entity);
     }
 
@@ -60,49 +61,34 @@ public class ProductsFacadeREST extends AbstractFacade<Products> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Products find(@PathParam("id") Integer id) {
+    public Tagsofanswers find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Products> findAll() {
+    public List<Tagsofanswers> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Products> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Tagsofanswers> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
-//
-//    @GET
-//    @Path("findByCategories")
-//    @Produces(MediaType.APPLICATION_XML)
-//    public List<Products> findByCategories(@QueryParam("categoriesArray") String categoriesArray, @QueryParam("offset") String offset, @QueryParam("limit") String limit) {
-//        TypedQuery query = em.createNamedQuery("Products.findByCategories", Products.class);
-//        query.setParameter("categoriesArray", categoriesArray);
-//        query.setParameter("offset", Integer.parseInt(offset));
-//        query.setParameter("limit", Integer.parseInt(limit));
-//        return (List<Products>) query.getResultList();
-//    }
-//    
-    @GET
-    @Path("/findByCategories/{categoriesArray}/{offset}/{limit}")
-    @Produces(MediaType.APPLICATION_XML)
-    public List<Products> findByCategories(@PathParam("categoriesArray") String categoriesArray, @PathParam("offset") String offset, @PathParam("limit") String limit) {
-        List<Products> result = null;
-        result = (List<Products>) getEntityManager()
-                .createQuery("SELECT p FROM Products p WHERE p.categoryId IN (1,2,3)")
-                .setParameter("categoriesArray", categoriesArray)
-//                .setParameter("offset", offset)
-//                .setParameter("limit", limit)
-                .getResultList();
-        return result;
-    }
 
+    @GET
+    @Path("findByAnswerId")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Tagsofanswers> findByAnswerId(@QueryParam("answerId") String answerId) {
+        TypedQuery query = em.createNamedQuery("Tagsofanswers.findByAnswerId", Tagsofanswers.class);
+        Answers answer = new Answers(Integer.parseInt(answerId));
+        query.setParameter("answerId", answer);
+        return (List<Tagsofanswers>) query.getResultList();
+    }
+    
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)

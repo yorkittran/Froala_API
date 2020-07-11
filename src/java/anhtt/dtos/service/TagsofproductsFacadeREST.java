@@ -5,11 +5,14 @@
  */
 package anhtt.dtos.service;
 
+import anhtt.dtos.Products;
+import anhtt.dtos.Tags;
 import anhtt.dtos.Tagsofproducts;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,6 +21,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -76,6 +80,26 @@ public class TagsofproductsFacadeREST extends AbstractFacade<Tagsofproducts> {
         return super.findRange(new int[]{from, to});
     }
 
+    @GET
+    @Path("findByTagId")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Tagsofproducts> findByTagId(@QueryParam("tagId") String tagId) {
+        TypedQuery query = em.createNamedQuery("Tagsofproducts.findByTagId", Tagsofproducts.class);
+        Tags tag = new Tags(Integer.parseInt(tagId));
+        query.setParameter("tagId", tag);
+        return (List<Tagsofproducts>) query.getResultList();
+    }
+    
+    @GET
+    @Path("findByProductId")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Tagsofproducts> findByProductId(@QueryParam("productId") String productId) {
+        TypedQuery query = em.createNamedQuery("Tagsofproducts.findByProductId", Tagsofproducts.class);
+        Products product = new Products(Integer.parseInt(productId));
+        query.setParameter("productId", product);
+        return (List<Tagsofproducts>) query.getResultList();
+    }
+    
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
