@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -74,6 +76,15 @@ public class CategoriesFacadeREST extends AbstractFacade<Categories> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Categories> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
+    }
+
+    @GET
+    @Path("find")
+    @Produces(MediaType.APPLICATION_XML)
+    public Categories findByName(@QueryParam("name") String name) {
+        TypedQuery query = em.createNamedQuery("Categories.findByName", Categories.class);
+        query.setParameter("name", name);
+        return (Categories) query.getSingleResult();
     }
 
     @GET

@@ -6,10 +6,12 @@
 package anhtt.dtos.service;
 
 import anhtt.dtos.Favorites;
+import anhtt.dtos.Users;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -76,6 +79,16 @@ public class FavoritesFacadeREST extends AbstractFacade<Favorites> {
         return super.findRange(new int[]{from, to});
     }
 
+    @GET
+    @Path("findByUser")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Favorites> findByUser(@QueryParam("user") String userEmail) {
+        TypedQuery query = em.createNamedQuery("Favorites.findByUser", Favorites.class);
+        Users user = new Users(userEmail);
+        query.setParameter("user", user);
+        return (List<Favorites>) query.getResultList();
+    }
+    
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
