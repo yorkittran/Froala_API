@@ -5,7 +5,7 @@
  */
 package anhtt.dtos.service;
 
-import anhtt.dtos.Categories;
+import anhtt.dtos.Favorites;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author Yorkit Tran
  */
 @Stateless
-@Path("anhtt.dtos.categories")
-public class CategoriesFacadeREST extends AbstractFacade<Categories> {
+@Path("anhtt.dtos.favorites")
+public class FavoritesFacadeREST extends AbstractFacade<Favorites> {
 
     @PersistenceContext(unitName = "Froala_APIPU")
     private EntityManager em;
 
-    public CategoriesFacadeREST() {
-        super(Categories.class);
+    public FavoritesFacadeREST() {
+        super(Favorites.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Categories entity) {
+    public void create(Favorites entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Categories entity) {
+    public void edit(@PathParam("id") Integer id, Favorites entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class CategoriesFacadeREST extends AbstractFacade<Categories> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Categories find(@PathParam("id") Integer id) {
+    public Favorites find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Categories> findAll() {
+    public List<Favorites> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Categories> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Favorites> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

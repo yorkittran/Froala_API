@@ -77,6 +77,13 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     }
 
     @GET
+    @Path("/login/{username}/{password}")
+    @Produces(MediaType.APPLICATION_XML)
+    public Users login(@PathParam("username") String username, @PathParam("password") String password) {
+        return super.login(username, password);
+    }
+
+    @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
@@ -88,11 +95,4 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         return em;
     }
     
-    @GET
-    @Path("/login/{username}/{password}")
-    @Produces(MediaType.APPLICATION_XML)
-    public Users login(@PathParam("username") String username, @PathParam("password") String password) {
-        return super.login(username, password);
-    }
-
 }

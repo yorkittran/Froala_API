@@ -41,6 +41,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Products.findByRecommend", query = "SELECT p FROM Products p WHERE p.recommend = :recommend")})
 public class Products implements Serializable {
 
+    @OneToMany(mappedBy = "layerId")
+    private Collection<Favorites> favoritesCollection;
+    @OneToMany(mappedBy = "topId")
+    private Collection<Favorites> favoritesCollection1;
+    @OneToMany(mappedBy = "bottomId")
+    private Collection<Favorites> favoritesCollection2;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -196,5 +203,32 @@ public class Products implements Serializable {
     public String toString() {
         return "anhtt.dtos.Products[ id=" + id + " ]";
     }
-    
+
+    @XmlTransient
+    public Collection<Favorites> getFavoritesCollection() {
+        return favoritesCollection;
+    }
+
+    public void setFavoritesCollection(Collection<Favorites> favoritesCollection) {
+        this.favoritesCollection = favoritesCollection;
+    }
+
+    @XmlTransient
+    public Collection<Favorites> getFavoritesCollection1() {
+        return favoritesCollection1;
+    }
+
+    public void setFavoritesCollection1(Collection<Favorites> favoritesCollection1) {
+        this.favoritesCollection1 = favoritesCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Favorites> getFavoritesCollection2() {
+        return favoritesCollection2;
+    }
+
+    public void setFavoritesCollection2(Collection<Favorites> favoritesCollection2) {
+        this.favoritesCollection2 = favoritesCollection2;
+    }
+
 }

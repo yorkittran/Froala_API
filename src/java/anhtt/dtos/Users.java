@@ -6,16 +6,19 @@
 package anhtt.dtos;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Users.findByFullname", query = "SELECT u FROM Users u WHERE u.fullname = :fullname")
     , @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")})
 public class Users implements Serializable {
+
+    @OneToMany(mappedBy = "userEmail")
+    private Collection<Favorites> favoritesCollection;
 
     private static final long serialVersionUID = 1L;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -126,5 +132,14 @@ public class Users implements Serializable {
     public String toString() {
         return "anhtt.dtos.Users[ email=" + email + " ]";
     }
-    
+
+    @XmlTransient
+    public Collection<Favorites> getFavoritesCollection() {
+        return favoritesCollection;
+    }
+
+    public void setFavoritesCollection(Collection<Favorites> favoritesCollection) {
+        this.favoritesCollection = favoritesCollection;
+    }
+
 }

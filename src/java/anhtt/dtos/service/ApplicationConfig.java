@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(anhtt.dtos.service.AnswersFacadeREST.class);
         resources.add(anhtt.dtos.service.CategoriesFacadeREST.class);
+        resources.add(anhtt.dtos.service.FavoritesFacadeREST.class);
         resources.add(anhtt.dtos.service.ProductsFacadeREST.class);
         resources.add(anhtt.dtos.service.QuestionsFacadeREST.class);
         resources.add(anhtt.dtos.service.TagsFacadeREST.class);
